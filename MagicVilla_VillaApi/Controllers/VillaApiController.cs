@@ -18,7 +18,18 @@ namespace MagicVilla_VillaApi.Controllers
         [HttpGet("id")]
         public ActionResult<VillaDTO> GetVilla(int id)
         {
-            return Ok(VillaStore.villaList.FirstOrDefault(u => u.Id==id));
+            if(id == 0)
+            {
+                return BadRequest();
+            }
+
+            var villa = VillaStore.villaList.FirstOrDefault(u => u.Id == id);
+            if (villa == null)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
 
     }
